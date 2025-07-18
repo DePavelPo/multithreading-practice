@@ -26,8 +26,10 @@ func BufferedChan() {
 		}(number)
 	}
 
-	wg.Wait()
-	close(results)
+	go func() {
+		wg.Wait()
+		close(results)
+	}()
 
 	resultMap := make(map[int]int)
 	for result := range results {

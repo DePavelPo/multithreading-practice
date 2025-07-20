@@ -16,3 +16,5 @@ Tasks:
    - consumer's goroutine reads channel and output the square of received value
      - Solutions:
        1. using unbuffered channel and single producer and consumer
+       2. using buffered channel, single producer and consumer, using context with cancel
+       3. using buffered channel, few producers and single consumer, using context with cancel

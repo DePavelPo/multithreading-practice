@@ -24,8 +24,10 @@ func UnbufferedChannel() {
 	// consumer (read channel and output the square of received int)
 	go func() {
 		defer wg.Done()
+		idx := 1
 		for val := range unbufChan { // getting channel's data. Automatically finishes if close() is called
-			fmt.Printf("%d^2 = %d\n", val, pow(val))
+			fmt.Printf("%d. %d^2 = %d\n", idx, val, pow(val))
+			idx++
 		}
 	}()
 

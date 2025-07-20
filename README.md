@@ -7,14 +7,14 @@ Tasks:
    - find a square for each value using goroutines
    - output the result
      - Solutions:
-       1. async output: finding squares and result output in goroutines using mutex to avoid data race
-       2. sync output: finding squares in goroutines using mutex to avoid data race. Sorted output
-       3. buffered chan: save squares to buffered channel in goroutines. Sorted output
+       1. async output: finding squares and result output in goroutines using mutex to avoid data race (case number 1)
+       2. sync output: finding squares in goroutines using mutex to avoid data race. Sorted output (case number 2)
+       3. buffered chan: save squares to buffered channel in goroutines. Sorted output (case number 3)
 
 2. task with producer and consumer on channel (./tasks/chan-producer-consumer):
    - producer's goroutine puts random value into channel
    - consumer's goroutine reads channel and output the square of received value
      - Solutions:
-       1. using unbuffered channel and single producer and consumer
-       2. using buffered channel, single producer and consumer, using context with cancel
-       3. using buffered channel, few producers and single consumer, using context with cancel
+       1. using unbuffered channel and single producer and consumer (case number 1)
+       2. using buffered channel, single producer and consumer, using context with cancel (case number 2)
+       3. using buffered channel, few producers and single consumer, using context with cancel (case number 3)

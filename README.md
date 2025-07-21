@@ -18,3 +18,12 @@ Tasks:
        1. using unbuffered channel and single producer and consumer (case number 1)
        2. using buffered channel, single producer and consumer, using context with cancel (case number 2)
        3. using buffered channel, few producers and single consumer, using context with cancel (case number 3)
+
+3. task with data filter on channels (goroutines' conveyor) (./tasks/chan-data-filter):
+   - first goroutine generates random number and puts it into "a" channel
+   - second goroutine chooses only even numbers from "a" channel and puts them into "b" channel
+   - third goroutine does x2 for each number from "b" channel and puts them into "c" channel
+   - forth goroutine output numbers from "c" channel
+     - Solutions:
+       1. using buffered channel (case number 1)
+       2. using buffered channel, handling in each goroutine if context was cancelled (case number 2)

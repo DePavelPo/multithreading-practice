@@ -27,3 +27,13 @@ Tasks:
      - Solutions:
        1. using buffered channel (case number 1)
        2. using buffered channel, handling in each goroutine if context was cancelled (case number 2)
+
+4. task with safety counter (.tasks/safety-counter):
+   - using Counter struct with value field
+   - Inc() increments value, Dec() decrements value
+   - GetValue() returns value
+   - Calling Inc() and Dec() in different goroutines
+      - Solutions:
+        1. using RWMutex
+        2. using RWMutex with Cond to prevent situations when value is negative
+        3. using atomic instead of RWMutex and Cond

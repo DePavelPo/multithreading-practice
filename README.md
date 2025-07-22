@@ -34,6 +34,6 @@ Tasks:
    - GetValue() returns value
    - Calling Inc() and Dec() in different goroutines
       - Solutions:
-        1. using RWMutex
-        2. using RWMutex with Cond to prevent situations when value is negative
-        3. using atomic instead of RWMutex and Cond
+        1. using RWMutex (case number 1)
+        2. using RWMutex with Cond to prevent situations when value is negative (case number 2)
+        3. using atomic instead of RWMutex and Cond (case number 3)

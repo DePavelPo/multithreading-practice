@@ -18,17 +18,17 @@ func (s *semaphore) Release() {
 	<-s.Channel
 }
 
-type fibanacci struct {
+type fibonacci struct {
 	Number int
 	Result int
 }
 
-func fibanacciCalculate(n int) int {
+func fibonacciCalculate(n int) int {
 	if n <= 1 {
 		return n
 	}
 
-	return fibanacciCalculate(n-2) + fibanacciCalculate(n-1)
+	return fibonacciCalculate(n-2) + fibonacciCalculate(n-1)
 }
 
 func SemaphoreUsing(totalNumber, goCount int) {
@@ -46,8 +46,9 @@ func SemaphoreUsing(totalNumber, goCount int) {
 	}()
 
 	var wg sync.WaitGroup
-	outputCh := make(chan fibanacci, totalNumber)
-	// calculating fibanacci numbers with goroutines limit by semaphore
+	outputCh := make(chan fibonacci, totalNumber)
+	// calculating fibonacci numbers with goroutines limit by semaphore
+	// !!! we finish goroutines and create new goroutines but ONLY goCount goroutines work concurently !!!
 	for number := range chanForGenerating {
 		wg.Add(1)
 		go func(num int) {
@@ -55,11 +56,11 @@ func SemaphoreUsing(totalNumber, goCount int) {
 			sem.Acquire()
 			defer sem.Release()
 
-			fibanacciNumber := fibanacciCalculate(num)
+			fibonacciNumber := fibonacciCalculate(num)
 
-			outputCh <- fibanacci{
+			outputCh <- fibonacci{
 				Number: num,
-				Result: fibanacciNumber,
+				Result: fibonacciNumber,
 			}
 		}(number)
 	}
@@ -73,7 +74,7 @@ func SemaphoreUsing(totalNumber, goCount int) {
 	// output calculated numbers
 	for output := range outputCh {
 		// _ = output
-		fmt.Printf("fibanacci of %d = %d\n", output.Number, output.Result)
+		fmt.Printf("fibonacci of %d = %d\n", output.Number, output.Result)
 	}
 }
 

@@ -5,18 +5,18 @@ import (
 	"sync"
 )
 
-func fibanacciWorker(
+func fibonacciWorker(
 	wg *sync.WaitGroup,
 	inputCh <-chan int,
-	outputCh chan<- fibanacci,
+	outputCh chan<- fibonacci,
 ) {
 	defer wg.Done()
 
 	for number := range inputCh {
-		fibanacciNumber := fibanacciCalculate(number)
-		outputCh <- fibanacci{
+		fibonacciNumber := fibonacciCalculate(number)
+		outputCh <- fibonacci{
 			Number: number,
-			Result: fibanacciNumber,
+			Result: fibonacciNumber,
 		}
 	}
 }
@@ -31,14 +31,15 @@ func WorkerPoolUsing(totalNumber, goCount int) {
 		}
 	}()
 
-	outputCh := make(chan fibanacci, totalNumber)
+	outputCh := make(chan fibonacci, totalNumber)
 	wg := &sync.WaitGroup{}
-	// make fixed num of goroutines with calling fibanacci calculating
+	// make fixed num of goroutines with calling fibonacci calculating
+	// !!! we create goCount goroutines and DONT CREATE ANY OTHER AFTER. The number of goroutines is FIXED !!!
 	go func() {
 		for i := 0; i < goCount; i++ {
 			wg.Add(1)
 
-			go fibanacciWorker(wg, chanForGenerating, outputCh)
+			go fibonacciWorker(wg, chanForGenerating, outputCh)
 		}
 		wg.Wait()
 		close(outputCh) // close output channel when all goroutines were done
@@ -47,6 +48,6 @@ func WorkerPoolUsing(totalNumber, goCount int) {
 	// output calculated numbers
 	for output := range outputCh {
 		// _ = output
-		fmt.Printf("fibanacci of %d = %d\n", output.Number, output.Result)
+		fmt.Printf("fibonacci of %d = %d\n", output.Number, output.Result)
 	}
 }

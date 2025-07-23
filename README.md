@@ -37,3 +37,11 @@ Tasks:
         1. using RWMutex (case number 1)
         2. using RWMutex with Cond to prevent situations when value is negative (case number 2)
         3. using atomic instead of RWMutex and Cond (case number 3)
+
+5. task with limit number of goroutines (semaphore and worker pool) (.tasks/goroutines-limit):
+   - generate some random numbers
+   - the limit number of goroutines calculate fibonacci by generated numbers concurrently
+   - output calculated numbers
+      - Solutions:
+        1. using semaphore (case number 1)
+        2. using worker pool (case number 2)

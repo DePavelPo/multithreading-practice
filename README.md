@@ -45,3 +45,9 @@ Tasks:
       - Solutions:
         1. using semaphore (case number 1)
         2. using worker pool (case number 2)
+
+6. task with sync cache (.tasks/cache-sync):
+   - there is a cache with methods get(key) (value, bool) and set(key, value)
+   - needs to protect access to cache using mutex
+      - Solutions:
+        1. using RWMutex

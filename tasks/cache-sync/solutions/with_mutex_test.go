@@ -3,6 +3,7 @@ package solutions_test
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	sl "github.com/DePavelPo/multithreading-practice/tasks/cache-sync/solutions"
 )
@@ -24,5 +25,21 @@ func BenchmarkSyncWithMutex(b *testing.B) {
 				sl.SyncWithMutex(cs.producersCount, cs.consumersCount)
 			}
 		})
+	}
+}
+
+func TestCache_Deadlock(t *testing.T) {
+	c := sl.NewCache()
+	done := make(chan bool)
+
+	go func() {
+		c.Set("key1", "value1")
+		done <- true
+	}()
+
+	select {
+	case <-done:
+	case <-time.After(1 * time.Second):
+		t.Error("Possible deadlock detected")
 	}
 }

@@ -11,12 +11,13 @@ type cache struct {
 	mu   sync.RWMutex
 }
 
-func newCache() *cache {
+func NewCache() *cache {
 	return &cache{
 		data: make(map[string]string),
 	}
 }
 
+// get value from cache
 func (c *cache) Get(key string) (string, bool) {
 	c.mu.RLock()
 	value, ok := c.data[key]
@@ -24,6 +25,7 @@ func (c *cache) Get(key string) (string, bool) {
 	return value, ok
 }
 
+// set value in cahce
 func (c *cache) Set(key, value string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -31,9 +33,10 @@ func (c *cache) Set(key, value string) {
 }
 
 func SyncWithMutex(producersCount, consumersCount int) {
-	cache := newCache()
+	cache := NewCache()
 
 	wg := sync.WaitGroup{}
+	// concurrently trying to set value in cache
 	for i := 0; i < producersCount; i++ {
 		wg.Add(1)
 		go func(i int) {
@@ -46,10 +49,12 @@ func SyncWithMutex(producersCount, consumersCount int) {
 		}(i)
 	}
 
+	// concurrently trying to get value from cache
 	for j := 0; j < consumersCount; j++ {
 		wg.Add(1)
 		go func(j int) {
 			defer wg.Done()
+			// get a random key depend on generated keys
 			keyStr := fmt.Sprintf("key%d", randInt(producersCount))
 			_, _ = cache.Get(keyStr)
 			// if !ok {

@@ -51,3 +51,12 @@ Tasks:
    - needs to protect access to cache using mutex
       - Solutions:
         1. using RWMutex
+
+7. task with future-promise realization (.tasks/future-promise):
+   - the goroutine does fibonacci calculation (or other long tasks)
+   - the main goroutine is blocked until the result of calculation is received
+      - Solutions:
+        1. using unbuffered channel (case number 1)
+        2. using function that returns the channel that return the result (case number 2)
+        3. using context with timeout to prevent really long proccesses (case number 3)
+        4. using third-side library (case number 4)

@@ -60,3 +60,11 @@ Tasks:
         2. using function that returns the channel that return the result (case number 2)
         3. using context with timeout to prevent really long proccesses (case number 3)
         4. using third-side library (case number 4)
+
+8. task with 'Dining philosophers problem' (.tasks/dining-philosophers-problem):
+   - there are N philosophers sitting at a round table
+   - there is one fork between each philosopher
+   - to eat, a philosopher needs two forks - left and right
+   - all philosophers need to finish their meal
+      - Solutions:
+        1. with one Waiter who servers philosophers

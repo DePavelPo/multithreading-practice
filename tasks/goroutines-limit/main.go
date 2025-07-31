@@ -15,7 +15,7 @@ func main() {
 	gottenArg := flag.Arg(0)
 	gottenArgInt, err := strconv.Atoi(gottenArg)
 	if err != nil {
-		log.Fatal("unexpected flag format, nust be int")
+		log.Fatal("unexpected flag format, must be int")
 	}
 
 	switch gottenArgInt {

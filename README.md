@@ -65,6 +65,7 @@ Tasks:
    - there are N philosophers sitting at a round table
    - there is one fork between each philosopher
    - to eat, a philosopher needs two forks - left and right
-   - all philosophers need to finish their meal
+   - all philosophers eats repeatedly until the dining finishes
+   - the dining has a duration
       - Solutions:
         1. with one Waiter who servers philosophers
